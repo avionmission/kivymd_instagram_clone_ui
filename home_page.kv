@@ -1,0 +1,246 @@
+#:import CircularAvatarImage main.CircularAvatarImage
+#:import StoryCreator main.StoryCreator
+#:import PostCard main.PostCard
+
+<HomePage>:
+    orientation: 'vertical'
+    MDBoxLayout:
+        orientation: 'vertical'
+        # App Bar
+        MDBoxLayout:
+            padding: '5dp'
+            adaptive_height: True
+
+            MDIconButton:
+                icon: 'plus'
+
+            MDLabel:
+                text: 'Instagram'
+                halign: 'center'
+                valign: 'top'
+                font_size: 25
+                font_name: 'assets/Instafont.otf'
+
+            MDIconButton:
+                icon: 'facebook-messenger'
+
+        MDBoxLayout:
+            ScrollView:
+                bar_width: 0
+
+                MDBoxLayout:
+                    adaptive_height: True
+
+                    MDBoxLayout:
+                        orientation: 'vertical'
+                        adaptive_height: True
+                        id: timeline
+
+                        # Stories
+                        ScrollView:
+                            size_hint_y: None
+                            height: 110
+                            bar_width: 0
+
+                            MDBoxLayout:
+                                adaptive_width: True
+                                spacing: 5
+                                padding: 5
+
+                                # Story Creator
+                                StoryCreator:
+                                    size_hint: None, None
+                                    size: 62, 100
+                                    padding: 5
+                                    spacing: 5
+
+                                    MDRelativeLayout:
+                                        size_hint: None, None
+                                        size: 60, 100
+
+                                        Circle:
+                                            radius: [50, ]
+                                            size: 60, 60
+                                            md_bg_color: 1,1,1,1
+
+                                        Circle:
+                                            radius: [50, ]
+                                            size: 55, 55
+                                            md_bg_color: 1,1,1,1
+
+                                        FitImage:
+                                            source: root.profile_picture
+                                            size_hint: None, None
+                                            size: 53,53
+                                            radius: [53]
+                                            pos_hint: {"center_x":0.5, "center_y":0.6}
+
+                                        Circle:
+                                            size_hint: None, None
+                                            size: 17, 17
+                                            md_bg_color: 1,1,1,1
+                                            radius: [17, ]
+                                            pos_hint: {"center_x":0.8, "center_y":0.4}
+
+                                        FitImage:
+                                            size_hint: None, None
+                                            source: 'assets/plus_icon.png'
+                                            size: 15, 15
+                                            md_bg_color: 0,0,1,1
+                                            radius: [15, ]
+                                            pos_hint: {"center_x":0.8, "center_y":0.4}
+
+                                        MDLabel:
+                                            text: "Your Story"
+                                            halign: 'center'
+                                            pos_hint: {"center_x":0.5, "center_y":0.2}
+                                            font_size: 11
+                                            theme_text_color: 'Custom'
+                                            text_color: 0, 0, 0, 1
+
+                                MDBoxLayout:
+                                    adaptive_width: True
+                                    padding: 5
+                                    spacing: 5
+                                    id: stories
+                        MDSeparator:
+
+<Circle@MDCard>
+    size_hint: None, None
+    elevation: 0
+    pos_hint: {"center_x": 0.5, "center_y": 0.6}
+
+<CircularAvatarImage>
+
+    size_hint: None, None
+    size: 62, 100
+    elevation: 0
+
+    MDRelativeLayout:
+        size_hint: None, None
+        size: 60, 100
+
+        Circle:
+            radius: [50, ]
+            size: 60, 60
+            md_bg_color: 1,0,0,1
+
+        Circle:
+            radius: [50, ]
+            size: 55, 55
+            md_bg_color: 1,1,1,1
+
+        # profile picture
+        FitImage:
+            source: root.avatar
+            size_hint: None, None
+            size: 53, 53
+            radius: [53]
+            pos_hint: {"center_x":0.5, "center_y":0.6}
+
+        # Username
+        MDLabel:
+            text: root.name
+            halign: 'center'
+            pos_hint: {"center_x:": 0.5, "center_y": 0.2}
+            font_size: 11
+            theme_text_color: "Custom"
+            text_color: 0,0,0,1
+
+<PostCard>
+    orientation: 'vertical'
+    size_hint_y: None
+    height: "420dp"
+    spacing: 2
+    elevation: 0
+
+    MDBoxLayout:
+        padding: 2
+        adaptive_height: True
+
+        OneLineAvatarListItem:
+            text: f'[b][size=14]{root.username}[/size][/b]'
+            divider: None
+            _no_ripple_effect: True
+
+            ImageLeftWidget:
+                source: root.avatar
+                radius: [20, ]
+        MDIconButton:
+            icon: 'dots-vertical'
+
+    # Post
+    FitImage:
+        adaptive_height: True
+        source: root.post
+
+    # Reactions
+    MDBoxLayout:
+        padding: 5, 0, 0, 0
+        spacings: 2
+        adaptive_height: True
+
+        MDIconButton:
+            icon: "heart-outline"
+
+        MDIconButton:
+            icon: 'message-outline'
+
+        MDIconButton:
+            icon: 'send-outline'
+
+        Widget:
+
+        MDIconButton:
+            icon: 'bookmark-outline'
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: 5,0,0,0
+        spacing: 3
+        adaptive_height: True
+
+        MyLabel:
+            text: f'{root.likes} likes'
+            bold: True
+
+        MyLabel:
+            markup: True
+            text: f'[b]{root.username}[/b] {root.caption}'
+
+        HalfOpacityLabel:
+            text: f'View all {root.comments} comments'
+
+    MDBoxLayout:
+        padding: 5,0,0,0
+        spacing: 2
+        adaptive_height: True
+
+        FitImage:
+            source: root.profile_pic
+            size_hint: None, None
+            size: 20,20
+            radius: [20, ]
+
+        HalfOpacityLabel:
+            text: 'Add a comment...'
+
+    MDBoxLayout:
+        padding: 9,0,0,0
+        spacing: 0
+        adaptive_height: True
+
+        HalfOpacityLabel:
+            font_size: 10
+            text: f'{root.posted_ago} agp'
+
+
+
+<MyLabel@MDLabel>
+    adaptive_height:True
+    font_size: 12
+
+<HalfOpacityLabel@MyLabel>:
+    theme_text_color: 'Custom'
+    text_color: 0,0,0,0.5
+
